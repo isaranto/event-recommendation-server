@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.UUID;
 
 public class JClientSocketManager implements ClientSocketManager {
 
@@ -11,12 +12,14 @@ public class JClientSocketManager implements ClientSocketManager {
 	DataInputStream in;
 	DataOutputStream out;
 	JNetworkManager manager;
+	String uid; // random uid
 
 	// Slave slave; // The thread listening for messages from client(!)
 
 	public JClientSocketManager(Socket socket, JNetworkManager manager) {
 		this.socket = socket;
 		this.manager = manager;
+		this.uid = UUID.randomUUID().toString();
 	}
 
 	@Override
