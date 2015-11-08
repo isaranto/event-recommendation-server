@@ -1,8 +1,17 @@
 package network;
 
+import java.io.IOException;
 import java.net.Socket;
 
+import util.GlobalVariables;
+
 public class JNetworkManager implements NetworkManager {
+
+	private JServerSocketManager serverSocketManager;
+
+	public JNetworkManager() {
+		setUpServerSocketManager();
+	}
 
 	@Override
 	public void addConnection(Socket newConnection) {
@@ -46,6 +55,19 @@ public class JNetworkManager implements NetworkManager {
 		 * TODO: push a message from a client to the task manager.
 		 */
 
+	}
+
+	@Override
+	public void setUpServerSocketManager() {
+		serverSocketManager = new JServerSocketManager(this,
+				GlobalVariables.serverPortNumber);
+		try {
+			serverSocketManager.openSocket();
+			serverSocketManager.start();
+		} catch (IOException e) {
+			handleServerSocketError();
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class JServerSocketManager implements ServerSocketManager {
+public class JServerSocketManager extends Thread implements ServerSocketManager {
 
 	private ServerSocket serverSocket;
 	private final int portNumber;
@@ -35,4 +35,14 @@ public class JServerSocketManager implements ServerSocketManager {
 		serverSocket = new ServerSocket(portNumber);
 	}
 
+	@Override
+	public void run() {
+		try {
+			listen();
+		} catch (IOException e) {
+			e.printStackTrace();
+			networkManager.handleServerSocketError();
+		}
+
+	}
 }

@@ -14,4 +14,6 @@ public interface NetworkManager {
 
 	public void pushMessageToTaskManager(String msg, String uID);
 
+	public void setUpServerSocketManager();
+
 }
