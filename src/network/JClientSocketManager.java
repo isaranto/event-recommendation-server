@@ -38,6 +38,10 @@ public class JClientSocketManager implements ClientSocketManager {
 		return this.manager;
 	}
 
+	public String getUID() {
+		return this.uid;
+	}
+
 	@Override
 	public void sendMessageToClient(String msg) throws IOException {
 		this.out.writeUTF(msg);
@@ -45,6 +49,7 @@ public class JClientSocketManager implements ClientSocketManager {
 
 	@Override
 	public void terminateConnection() throws IOException {
+		closeStreams();
 		socket.close();
 	}
 }

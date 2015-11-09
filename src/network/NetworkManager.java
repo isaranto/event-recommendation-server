@@ -8,7 +8,7 @@ public interface NetworkManager {
 
 	public void getMessageFromTaskManager(String msg, String uID);
 
-	public void handleClientSocketError();
+	public void handleClientSocketError(String uID);
 
 	public void handleServerSocketError();
 
