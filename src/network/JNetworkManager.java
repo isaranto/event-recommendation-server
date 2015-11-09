@@ -50,9 +50,17 @@ public class JNetworkManager implements NetworkManager {
 
 	@Override
 	public void sendMessageToClient(String msg, String uID) {
-		JClientSocketManager target = clientMap.getConnection(uID);
 		try {
+			JClientSocketManager target = clientMap.getConnection(uID);
 			target.sendMessageToClient(msg);
+		} catch (NullPointerException n) {
+			n.printStackTrace();
+			/*
+			 * TODO: ignore it. It can happen if when a job for a client is
+			 * completed but in the meantime the connection is lost. Should not
+			 * be an error as in unstable local networks it can happen many
+			 * times. Log it as a warning.
+			 */
 		} catch (IOException io) {
 			io.printStackTrace();
 			handleClientSocketError(uID);
