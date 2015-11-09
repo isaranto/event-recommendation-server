@@ -2,10 +2,10 @@ package network;
 
 import java.util.HashMap;
 
-public class ClientSocketList {
+public class ClientSocketHashMap {
 	private HashMap<String, JClientSocketManager> connections;
 
-	public ClientSocketList() {
+	public ClientSocketHashMap() {
 		this.connections = new HashMap<String, JClientSocketManager>();
 
 	}
