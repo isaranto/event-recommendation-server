@@ -8,27 +8,18 @@ import util.GlobalVariables;
 public class JNetworkManager implements NetworkManager {
 
 	private JServerSocketManager serverSocketManager;
+	private final ClientSocketHashMap clientMap;
 
 	public JNetworkManager() {
 		setUpServerSocketManager();
+		clientMap = new ClientSocketHashMap();
 	}
 
 	@Override
 	public void addConnection(Socket newConnection) {
-		/*
-		 * TODO: get a new connection from server socket manager and add it to
-		 * the client connections data structure.
-		 */
-
-	}
-
-	@Override
-	public void getMessageFromTaskManager(String msg, String uID) {
-		/*
-		 * TODO: get a message from task manager and send it to the right
-		 * client.
-		 */
-
+		JClientSocketManager newClient = new JClientSocketManager(
+				newConnection, this);
+		clientMap.addConnection(newClient);
 	}
 
 	@Override
@@ -55,6 +46,17 @@ public class JNetworkManager implements NetworkManager {
 		 * TODO: push a message from a client to the task manager.
 		 */
 
+	}
+
+	@Override
+	public void sendMessageToClient(String msg, String uID) {
+		JClientSocketManager target = clientMap.getConnection(uID);
+		try {
+			target.sendMessageToClient(msg);
+		} catch (IOException io) {
+			io.printStackTrace();
+			handleClientSocketError(uID);
+		}
 	}
 
 	@Override
