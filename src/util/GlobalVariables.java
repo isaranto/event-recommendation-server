@@ -9,5 +9,6 @@ public class GlobalVariables {
 	 */
 
 	public static final int serverPortNumber = 1500;
+	public static final int maximumConnectionsNum = 20;
 
 }

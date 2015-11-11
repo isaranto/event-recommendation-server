@@ -12,14 +12,27 @@ public class JNetworkManager implements NetworkManager {
 
 	public JNetworkManager() {
 		setUpServerSocketManager();
-		clientMap = new ClientSocketHashMap();
+		clientMap = new ClientSocketHashMap(
+				GlobalVariables.maximumConnectionsNum);
 	}
 
 	@Override
 	public void addConnection(Socket newConnection) {
-		JClientSocketManager newClient = new JClientSocketManager(
-				newConnection, this);
-		clientMap.addConnection(newClient);
+		if (clientMap.isFull()) {
+			try {
+				newConnection.close();
+				/*
+				 * TODO: log connection attempt failure due to maximum capacity
+				 * of connections.
+				 */
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			JClientSocketManager newClient = new JClientSocketManager(
+					newConnection, this);
+			clientMap.addConnection(newClient);
+		}
 	}
 
 	@Override
@@ -51,16 +64,10 @@ public class JNetworkManager implements NetworkManager {
 	@Override
 	public void sendMessageToClient(String msg, String uID) {
 		try {
-			JClientSocketManager target = clientMap.getConnection(uID);
-			target.sendMessageToClient(msg);
-		} catch (NullPointerException n) {
-			n.printStackTrace();
-			/*
-			 * TODO: ignore it. It can happen if when a job for a client is
-			 * completed but in the meantime the connection is lost. Should not
-			 * be an error as in unstable local networks it can happen many
-			 * times. Log it as a warning.
-			 */
+			if (clientMap.containsConnection(uID)) {
+				JClientSocketManager target = clientMap.getConnection(uID);
+				target.sendMessageToClient(msg);
+			}
 		} catch (IOException io) {
 			io.printStackTrace();
 			handleClientSocketError(uID);
