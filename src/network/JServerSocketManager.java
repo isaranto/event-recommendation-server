@@ -8,9 +8,9 @@ public class JServerSocketManager extends Thread implements ServerSocketManager 
 
 	private ServerSocket serverSocket;
 	private final int portNumber;
-	private final JNetworkManager networkManager;
+	private final NetworkManager networkManager;
 
-	public JServerSocketManager(JNetworkManager networkManager, int portNumber) {
+	public JServerSocketManager(NetworkManager networkManager, int portNumber) {
 		this.networkManager = networkManager;
 		this.portNumber = portNumber;
 	}

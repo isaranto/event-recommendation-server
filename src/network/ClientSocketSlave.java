@@ -5,10 +5,10 @@ import java.io.IOException;
 
 public class ClientSocketSlave extends Thread {
 
-	DataInputStream in;
-	JClientSocketManager clientManager;
+	private DataInputStream in;
+	private ClientSocketManager clientManager;
 
-	public ClientSocketSlave(JClientSocketManager manager, DataInputStream in) {
+	public ClientSocketSlave(ClientSocketManager manager, DataInputStream in) {
 		this.clientManager = manager;
 		this.in = in;
 	}
@@ -19,12 +19,9 @@ public class ClientSocketSlave extends Thread {
 		while (true) {
 			try {
 				String message = in.readUTF();
-				clientManager.getManager().pushMessageToTaskManager(message,
-						clientManager.getUID());
-
+				clientManager.deliverMessage(message);
 			} catch (IOException io) {
-				clientManager.getManager().handleClientSocketError(
-						clientManager.getUID());
+				clientManager.deliverIOException(io);
 			}
 		}
 	}

@@ -7,7 +7,7 @@ import util.GlobalVariables;
 
 public class JNetworkManager implements NetworkManager {
 
-	private JServerSocketManager serverSocketManager;
+	private ServerSocketManager serverSocketManager;
 	private final ClientSocketHashMap clientMap;
 
 	public JNetworkManager() {
@@ -80,7 +80,7 @@ public class JNetworkManager implements NetworkManager {
 				GlobalVariables.serverPortNumber);
 		try {
 			serverSocketManager.openSocket();
-			serverSocketManager.start();
+			((Thread) serverSocketManager).start();
 		} catch (IOException e) {
 			handleServerSocketError();
 			e.printStackTrace();
