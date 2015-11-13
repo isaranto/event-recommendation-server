@@ -3,6 +3,7 @@ package network;
 import java.io.IOException;
 import java.net.Socket;
 
+import util.GlobalManagers;
 import util.GlobalVariables;
 
 public class JNetworkManager implements NetworkManager {
@@ -55,10 +56,7 @@ public class JNetworkManager implements NetworkManager {
 
 	@Override
 	public void pushMessageToTaskManager(String msg, String uID) {
-		/*
-		 * TODO: push a message from a client to the task manager.
-		 */
-
+		GlobalManagers.taskManager.handleMessageFromNetwork(msg, uID);
 	}
 
 	@Override
