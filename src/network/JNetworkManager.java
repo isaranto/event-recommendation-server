@@ -38,20 +38,24 @@ public class JNetworkManager implements NetworkManager {
 
 	@Override
 	public void handleClientSocketError(String uID) {
-		/*
-		 * TODO: Handles a client error. For example: close client connection,
-		 * remove from data structure, warn the task manager to log him off.
-		 */
+		try {
+			clientMap.getConnection(uID).terminateConnection();
+			clientMap.removeConnection(uID);
+		} catch (Exception e) {
+			e.printStackTrace();
+			/*
+			 * TODO: log exception;
+			 */
+		}
 
 	}
 
 	@Override
 	public void handleServerSocketError() {
 		/*
-		 * TODO: Handles a server socket error. Crucial failure, propagate
-		 * message to administrator and log the error.
+		 * In this case the failure is critical. We need to warn the
+		 * administrator directly.
 		 */
-
 	}
 
 	@Override

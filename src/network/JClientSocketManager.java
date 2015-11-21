@@ -13,6 +13,7 @@ public class JClientSocketManager implements ClientSocketManager {
 	private DataOutputStream out;
 	private NetworkManager manager;
 	private String uid; // random uid
+	private ClientSocketSlave slave;
 
 	// Slave slave; // The thread listening for messages from client(!)
 
@@ -32,6 +33,8 @@ public class JClientSocketManager implements ClientSocketManager {
 	public void createStreams() throws IOException {
 		this.in = new DataInputStream(socket.getInputStream());
 		this.out = new DataOutputStream(socket.getOutputStream());
+		this.slave = new ClientSocketSlave(this, in);
+		this.slave.start();
 	}
 
 	@Override
@@ -55,6 +58,7 @@ public class JClientSocketManager implements ClientSocketManager {
 
 	@Override
 	public void terminateConnection() throws IOException {
+		slave.interrupt();
 		closeStreams();
 		socket.close();
 	}
