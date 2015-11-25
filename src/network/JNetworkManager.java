@@ -32,7 +32,12 @@ public class JNetworkManager implements NetworkManager {
 		} else {
 			JClientSocketManager newClient = new JClientSocketManager(
 					newConnection, this);
-			clientMap.addConnection(newClient);
+			try {
+				newClient.createStreams();
+				clientMap.addConnection(newClient);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

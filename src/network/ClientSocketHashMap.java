@@ -24,6 +24,10 @@ public class ClientSocketHashMap {
 		return this.connections.get(uid);
 	}
 
+	public int getSize() {
+		return this.connections.size();
+	}
+
 	public boolean isFull() {
 		return connections.size() >= maximumSize;
 	}

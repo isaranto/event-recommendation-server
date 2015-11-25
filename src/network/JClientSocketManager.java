@@ -15,8 +15,6 @@ public class JClientSocketManager implements ClientSocketManager {
 	private String uid; // random uid
 	private ClientSocketSlave slave;
 
-	// Slave slave; // The thread listening for messages from client(!)
-
 	public JClientSocketManager(Socket socket, NetworkManager manager) {
 		this.socket = socket;
 		this.manager = manager;
@@ -54,6 +52,7 @@ public class JClientSocketManager implements ClientSocketManager {
 	@Override
 	public void sendMessageToClient(String msg) throws IOException {
 		this.out.writeUTF(msg);
+		this.out.flush();
 	}
 
 	@Override

@@ -13,16 +13,20 @@ public class ClientSocketSlave extends Thread {
 		this.in = in;
 	}
 
-	@Override
-	public void run() {
-
+	public void listen() {
 		while (true) {
 			try {
 				String message = in.readUTF();
 				clientManager.deliverMessage(message);
 			} catch (IOException io) {
 				clientManager.deliverIOException(io);
+				break;
 			}
 		}
+	}
+
+	@Override
+	public void run() {
+		listen();
 	}
 }
