@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.Socket;
 
 import util.GlobalManagers;
-import util.GlobalVariables;
+import util.ProjectVariables;
 
 public class JNetworkManager implements NetworkManager {
 
@@ -14,7 +14,8 @@ public class JNetworkManager implements NetworkManager {
 	public JNetworkManager() {
 		setUpServerSocketManager();
 		clientMap = new ClientSocketHashMap(
-				GlobalVariables.maximumConnectionsNum);
+				((Long) ProjectVariables.getValue("max_num_of_connections"))
+						.intValue());
 	}
 
 	@Override
@@ -84,7 +85,7 @@ public class JNetworkManager implements NetworkManager {
 	@Override
 	public void setUpServerSocketManager() {
 		serverSocketManager = new JServerSocketManager(this,
-				GlobalVariables.serverPortNumber);
+				((Long) ProjectVariables.getValue("server_port")).intValue());
 		try {
 			serverSocketManager.openSocket();
 			((Thread) serverSocketManager).start();
