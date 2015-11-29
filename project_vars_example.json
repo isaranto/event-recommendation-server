@@ -1,0 +1,5 @@
+{
+"server_port": "the port your server is listening to e.g 1500",
+"max_num_of_connections": "the number of connections you allow e.g 20",
+"allow_duplicate_ips": "open more than one connections with the same ip address"
+}
