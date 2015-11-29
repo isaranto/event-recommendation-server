@@ -3,6 +3,7 @@ package network;
 import java.io.IOException;
 import java.net.Socket;
 
+import util.AdminCommandManager;
 import util.GlobalManagers;
 import util.ProjectVariables;
 
@@ -52,15 +53,11 @@ public class JNetworkManager implements NetworkManager {
 			 * TODO: log exception;
 			 */
 		}
-
 	}
 
 	@Override
-	public void handleServerSocketError() {
-		/*
-		 * In this case the failure is critical. We need to warn the
-		 * administrator directly.
-		 */
+	public void handleServerSocketError(String e) {
+		AdminCommandManager.print("Detected error in server socket: " + e);
 	}
 
 	@Override
@@ -83,14 +80,14 @@ public class JNetworkManager implements NetworkManager {
 
 	@Override
 	public void setUpServerSocketManager() {
-		serverSocketManager = new JServerSocketManager(this,
-				ProjectVariables.getIntValue("server_port"));
 		try {
+
+			serverSocketManager = new JServerSocketManager(this,
+					ProjectVariables.getIntValue("server_port"));
 			serverSocketManager.openSocket();
 			((Thread) serverSocketManager).start();
-		} catch (IOException e) {
-			handleServerSocketError();
-			e.printStackTrace();
+		} catch (Exception e) {
+			handleServerSocketError(e.toString());
 		}
 	}
 

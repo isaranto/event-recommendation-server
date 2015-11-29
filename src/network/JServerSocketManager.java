@@ -41,7 +41,7 @@ public class JServerSocketManager extends Thread implements ServerSocketManager 
 			listen();
 		} catch (IOException e) {
 			e.printStackTrace();
-			networkManager.handleServerSocketError();
+			networkManager.handleServerSocketError(e.toString());
 		}
 
 	}
