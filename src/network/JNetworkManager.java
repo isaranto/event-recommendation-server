@@ -14,8 +14,7 @@ public class JNetworkManager implements NetworkManager {
 	public JNetworkManager() {
 		setUpServerSocketManager();
 		clientMap = new ClientSocketHashMap(
-				((Long) ProjectVariables.getValue("max_num_of_connections"))
-						.intValue());
+				ProjectVariables.getIntValue("max_num_of_connections"));
 	}
 
 	@Override
@@ -85,7 +84,7 @@ public class JNetworkManager implements NetworkManager {
 	@Override
 	public void setUpServerSocketManager() {
 		serverSocketManager = new JServerSocketManager(this,
-				((Long) ProjectVariables.getValue("server_port")).intValue());
+				ProjectVariables.getIntValue("server_port"));
 		try {
 			serverSocketManager.openSocket();
 			((Thread) serverSocketManager).start();

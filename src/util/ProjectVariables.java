@@ -15,6 +15,14 @@ public class ProjectVariables {
 	private static String filepath = "project_vars.json";
 	private static JSONObject projectVars;
 
+	public static int getIntValue(String key) {
+		if (projectVars.get(key).getClass().getSimpleName().equals("Long")) {
+			return ((Long) projectVars.get(key)).intValue();
+		} else {
+			return -1;
+		}
+	}
+
 	public static Object getValue(String key) {
 		return projectVars.get(key);
 	}
