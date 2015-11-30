@@ -2,6 +2,8 @@ package tasks;
 
 import util.GlobalManagers;
 
+import com.google.gson.Gson;
+
 public class JTaskManager implements TaskManager {
 
 	@Override
@@ -11,7 +13,9 @@ public class JTaskManager implements TaskManager {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		sendMessageToNetwork("Hi friend", uID);
+
+		Message m = new Message("action-verification", true);
+		sendMessageToNetwork(new Gson().toJson(m), uID);
 	}
 
 	@Override
