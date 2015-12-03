@@ -1,24 +1,25 @@
 package model;
 
 public class Profile {
-	private String name, bio, country, city, state, email, gender, hometown, language, link, flickr, tumblr, twitter,
-			linkedin, fb_name, fb_gender;
-	private int id, joined, facebook, birth_day, birth_month, birth_year;
-	private double lon, lat;
+	private String name, bio, country, city, state, email, gender, hometown,
+			language, link, flickr, tumblr, twitter, linkedin, fb_name,
+			fb_gender;
+	private Integer id, joined, facebook, birth_day, birth_month, birth_year;
+	private Double lon, lat;
 
 	public String getBio() {
 		return bio;
 	}
 
-	public int getBirth_day() {
+	public Integer getBirth_day() {
 		return birth_day;
 	}
 
-	public int getBirth_month() {
+	public Integer getBirth_month() {
 		return birth_month;
 	}
 
-	public int getBirth_year() {
+	public Integer getBirth_year() {
 		return birth_year;
 	}
 
@@ -34,7 +35,7 @@ public class Profile {
 		return email;
 	}
 
-	public int getFacebook() {
+	public Integer getFacebook() {
 		return facebook;
 	}
 
@@ -58,11 +59,11 @@ public class Profile {
 		return hometown;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public int getJoined() {
+	public Integer getJoined() {
 		return joined;
 	}
 
@@ -70,7 +71,7 @@ public class Profile {
 		return language;
 	}
 
-	public double getLat() {
+	public Double getLat() {
 		return lat;
 	}
 
@@ -82,7 +83,7 @@ public class Profile {
 		return linkedin;
 	}
 
-	public double getLon() {
+	public Double getLon() {
 		return lon;
 	}
 
@@ -106,15 +107,15 @@ public class Profile {
 		this.bio = bio;
 	}
 
-	public void setBirth_day(int birth_day) {
+	public void setBirth_day(Integer birth_day) {
 		this.birth_day = birth_day;
 	}
 
-	public void setBirth_month(int birth_month) {
+	public void setBirth_month(Integer birth_month) {
 		this.birth_month = birth_month;
 	}
 
-	public void setBirth_year(int birth_year) {
+	public void setBirth_year(Integer birth_year) {
 		this.birth_year = birth_year;
 	}
 
@@ -130,7 +131,7 @@ public class Profile {
 		this.email = email;
 	}
 
-	public void setFacebook(int facebook) {
+	public void setFacebook(Integer facebook) {
 		this.facebook = facebook;
 	}
 
@@ -154,11 +155,11 @@ public class Profile {
 		this.hometown = hometown;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public void setJoined(int joined) {
+	public void setJoined(Integer joined) {
 		this.joined = joined;
 	}
 
@@ -166,7 +167,7 @@ public class Profile {
 		this.language = language;
 	}
 
-	public void setLat(double lat) {
+	public void setLat(Double lat) {
 		this.lat = lat;
 	}
 
@@ -178,7 +179,7 @@ public class Profile {
 		this.linkedin = linkedin;
 	}
 
-	public void setLon(double lon) {
+	public void setLon(Double lon) {
 		this.lon = lon;
 	}
 
