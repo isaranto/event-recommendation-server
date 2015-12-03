@@ -18,12 +18,33 @@ public class JTaskManager implements TaskManager {
 	public void handleMessageFromNetwork(String msg, String uID) {
 
 		if (!infoMap.containsConnection(uID)) {
-			ConnectionInfo con = new ConnectionInfo(uID);
-			infoMap.addConnection(con);
+			infoMap.addConnection(new ConnectionInfo(uID));
 		}
+		if (!MessageInterpreter.messageIsValid(msg)) {
+			Message response = new Message("invalid-request", false);
+			sendMessageToNetwork(new Gson().toJson(response), uID);
+			return;
+		}
+		if ((MessageInterpreter.messageRequiresAuth(msg))
+				&& (!infoMap.get(uID).isAuthenticated())) {
+			Message response = new Message("unauthorised access", false);
+			sendMessageToNetwork(new Gson().toJson(response), uID);
+			return;
+		}
+		/*
+		 * If everything so far is ok (message is valid) we push the message to
+		 * another entity responsible for handling the queries (Scheduler). The
+		 * Scheduler discerns simple from composite tasks and assigns the
+		 * execution to the DBManager or the Map-Reduce framework. As soon as
+		 * the task is finished the Scheduler contacts another entity called
+		 * ResponseManager. The ResponseManager most usually appends the result
+		 * (boolean or data-collection) to a new Message and just pushes it back
+		 * to the TaskManager so we can deliver it to the client. Be careful in
+		 * the case of authentication where the ResponseManager must contact the
+		 * TaskManaget to update his infoMap (e.g update the user's info like
+		 * authentication and appID).
+		 */
 
-		Message m = new Message("action-verification", true);
-		sendMessageToNetwork(new Gson().toJson(m), uID);
 	}
 
 	@Override

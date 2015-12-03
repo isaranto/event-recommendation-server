@@ -23,7 +23,13 @@ public class MessageInterpreter {
 		}
 	}
 
-	public static boolean userIsAuthenticated(String uID) {
-		return false;
+	public static boolean messageRequiresAuth(String msg) {
+		// except auth action all messages require authentication.
+		try {
+			Message m = new Gson().fromJson(msg, Message.class);
+			return !m.action.equals("authentication");
+		} catch (Exception e) {
+			return true;
+		}
 	}
 }
