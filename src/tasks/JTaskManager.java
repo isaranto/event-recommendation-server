@@ -1,5 +1,6 @@
 package tasks;
 
+import model.Message;
 import util.GlobalManagers;
 import util.ProjectVariables;
 
