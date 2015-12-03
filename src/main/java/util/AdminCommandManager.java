@@ -27,21 +27,21 @@ public class AdminCommandManager {
 					System.in));
 			try {
 				switch (Integer.parseInt(br.readLine())) {
-				case 0:
-					printHelpMenu();
-					break;
-				case 1:
-					loadProjectParameters();
-					break;
-				case 2:
-					initComponentManagers();
-					break;
-				case 3:
-					terminateServer();
-					break;
-				default:
-					printGeneric();
-					break;
+					case 0:
+						printHelpMenu();
+						break;
+					case 1:
+						loadProjectParameters();
+						break;
+					case 2:
+						initComponentManagers();
+						break;
+					case 3:
+						terminateServer();
+						break;
+					default:
+						printGeneric();
+						break;
 				}
 
 			} catch (Exception e) {

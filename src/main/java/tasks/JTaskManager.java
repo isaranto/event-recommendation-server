@@ -1,5 +1,7 @@
 package tasks;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import util.GlobalManagers;
 import util.ProjectVariables;
 
@@ -17,6 +19,7 @@ public class JTaskManager implements TaskManager {
 	@Override
 	public void handleMessageFromNetwork(String msg, String uID) {
 
+		System.out.println(msg);
 		if (!infoMap.containsConnection(uID)) {
 			infoMap.addConnection(new ConnectionInfo(uID));
 		}
@@ -31,6 +34,18 @@ public class JTaskManager implements TaskManager {
 			sendMessageToNetwork(new Gson().toJson(response), uID);
 			return;
 		}
+
+		//TODO This is just a proof of concept for the first deliverable.
+		JsonObject jsonObject = new JsonParser().parse(msg).getAsJsonObject();
+		if (jsonObject.get("email").getAsString().equals("admin@mail.com")
+				&& jsonObject.get("password").getAsString().equals("admin")) {
+
+			sendMessageToNetwork(new Gson().toJson(new Message("authenticate", true)), uID);
+		}
+		else {
+			sendMessageToNetwork(new Gson().toJson(new Message("authenticate", false)), uID);
+		}
+
 		/*
 		 * If everything so far is ok (message is valid) we push the message to
 		 * another entity responsible for handling the queries (Scheduler). The

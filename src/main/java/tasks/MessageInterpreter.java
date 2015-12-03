@@ -27,7 +27,7 @@ public class MessageInterpreter {
 		// except auth action all messages require authentication.
 		try {
 			Message m = new Gson().fromJson(msg, Message.class);
-			return !m.action.equals("authentication");
+			return !m.action.equals("authenticate");
 		} catch (Exception e) {
 			return true;
 		}
