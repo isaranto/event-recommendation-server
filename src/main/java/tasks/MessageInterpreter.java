@@ -5,16 +5,13 @@ import java.util.List;
 
 import model.Message;
 
-import com.google.gson.Gson;
-
 public class MessageInterpreter {
 
 	private static final List<String> valid_actions = Arrays.asList("add",
 			"get", "delete", "edit", "authenticate");
 
-	public static boolean messageIsValid(String msg) {
+	public static boolean messageIsValid(Message m) {
 		try {
-			Message m = new Gson().fromJson(msg, Message.class);
 			if (valid_actions.contains(m.getAction())) {
 				return true;
 			} else {
@@ -25,11 +22,10 @@ public class MessageInterpreter {
 		}
 	}
 
-	public static boolean messageRequiresAuth(String msg) {
+	public static boolean messageRequiresAuth(Message m) {
 		// except auth action all messages require authentication.
 		try {
-			Message m = new Gson().fromJson(msg, Message.class);
-			return !m.getAction().equals("authentication");
+			return !m.getAction().equals("authenticate");
 		} catch (Exception e) {
 			return true;
 		}
