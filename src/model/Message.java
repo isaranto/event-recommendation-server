@@ -35,6 +35,10 @@ public class Message {
 		return this.profiles;
 	}
 
+	public void setAck(boolean ack) {
+		this.ack = ack;
+	}
+
 	public void setCategories(ArrayList<Category> categories) {
 		this.categories = categories;
 	}

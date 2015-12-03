@@ -4,7 +4,7 @@ import model.Connection;
 
 public class ConnectionInfo extends Connection {
 
-	private String appUID;
+	private Integer appUID;
 	private boolean authenticated;
 
 	public ConnectionInfo(String networkUID) {
@@ -12,7 +12,14 @@ public class ConnectionInfo extends Connection {
 		this.authenticated = false;
 	}
 
-	public String getAppUID() {
+	public ConnectionInfo(String networkUID, Integer appUID,
+			boolean authenticated) {
+		this.uID = networkUID;
+		this.appUID = appUID;
+		this.authenticated = authenticated;
+	}
+
+	public Integer getAppUID() {
 		return this.appUID;
 	}
 
@@ -20,7 +27,7 @@ public class ConnectionInfo extends Connection {
 		return this.authenticated;
 	}
 
-	public void setAppUID(String id) {
+	public void setAppUID(Integer id) {
 		this.appUID = id;
 	}
 
