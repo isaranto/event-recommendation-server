@@ -3,7 +3,7 @@ package model;
 public class Profile {
 	private String name, bio, country, city, state, email, gender, hometown,
 			language, link, flickr, tumblr, twitter, linkedin, fb_name,
-			fb_gender;
+			fb_gender, password;
 	private Integer id, joined, facebook, birth_day, birth_month, birth_year;
 	private Double lon, lat;
 
@@ -89,6 +89,10 @@ public class Profile {
 
 	public String getName() {
 		return name;
+	}
+
+	public String getPassword() {
+		return password;
 	}
 
 	public String getState() {
@@ -185,6 +189,10 @@ public class Profile {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public void setState(String state) {
