@@ -8,7 +8,7 @@ import com.google.gson.Gson;
 public class MessageInterpreter {
 
 	private static final List<String> valid_actions = Arrays.asList("add",
-			"get", "delete", "edit", "authentication");
+			"get", "delete", "edit", "authenticate");
 
 	public static boolean messageIsValid(String msg) {
 		try {

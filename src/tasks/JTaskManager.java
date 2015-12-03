@@ -27,7 +27,7 @@ public class JTaskManager implements TaskManager {
 		}
 		if ((MessageInterpreter.messageRequiresAuth(msg))
 				&& (!infoMap.get(uID).isAuthenticated())) {
-			Message response = new Message("unauthorised access", false);
+			Message response = new Message("unauthorised-access", false);
 			sendMessageToNetwork(new Gson().toJson(response), uID);
 			return;
 		}
