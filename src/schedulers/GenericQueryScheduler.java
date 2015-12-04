@@ -8,5 +8,8 @@ public class GenericQueryScheduler {
 		if (m.getAction().equals("authenticate")) {
 			AuthQueryScheduler.handleAuthentication(m, uID);
 		}
+		if (m.getAction().equals("sign-out")) {
+			AuthQueryScheduler.handleSignOut(m, uID);
+		}
 	}
 }

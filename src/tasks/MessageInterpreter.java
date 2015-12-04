@@ -7,8 +7,8 @@ import model.Message;
 
 public class MessageInterpreter {
 
-	private static final List<String> valid_actions = Arrays.asList("add",
-			"get", "delete", "edit", "authenticate");
+	private static final List<String> valid_actions = Arrays.asList(
+			"authenticate", "sign-out");
 
 	public static boolean messageIsValid(Message m) {
 		try {
