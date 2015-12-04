@@ -31,7 +31,7 @@ public class AuthQueryScheduler {
 		}
 		Profile existingProfile = dbMethodMockUp(m.getProfiles().get(0));
 		if (existingProfile == null) {
-			Message response = new Message("wrong-credentials", false);
+			Message response = new Message("authenticate", false);
 			GlobalManagers.taskManager.sendMessageToNetwork(
 					new Gson().toJson(response), uID);
 		} else {
