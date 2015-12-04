@@ -1,5 +1,9 @@
 # event-recommendation-server
 
+Developed as part of the Distributed Systems Course project.
+
+Includes all the components of the recommendation server.
+
 You can build the project with your favourite IDE or with Maven.
 
 1) ```$ mvn compile```
