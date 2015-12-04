@@ -9,6 +9,19 @@ import com.google.gson.Gson;
 
 public class AuthQueryScheduler {
 
+	public static boolean authMessageIsValid(Message m) {
+		try {
+			boolean ack = !m.getAck();
+			boolean profile = (m.getProfiles().size() == 1);
+			boolean params = ((m.getProfiles().get(0).getEmail() != null) && (m
+					.getProfiles().get(0).getPassword() != null));
+			boolean other = ((m.getEvents() == null) && (m.getCategories() == null));
+			return ack && profile && params && other;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
 	public static Profile dbMethodMockUp(Profile p) {
 		/*
 		 * TODO: remove and link properly with the DBManager.
@@ -24,7 +37,7 @@ public class AuthQueryScheduler {
 	}
 
 	public static void handleAuthentication(Message m, String uID) {
-		if (!messageIsValid(m)) {
+		if (!authMessageIsValid(m)) {
 			Message response = new Message("invalid-request", false);
 			GlobalManagers.taskManager.sendMessageToNetwork(
 					new Gson().toJson(response), uID);
@@ -44,16 +57,11 @@ public class AuthQueryScheduler {
 		}
 	}
 
-	public static boolean messageIsValid(Message m) {
-		try {
-			boolean ack = (m.getAck() == false);
-			boolean profile = (m.getProfiles().size() == 1);
-			boolean params = ((m.getProfiles().get(0).getEmail() != null) && (m
-					.getProfiles().get(0).getPassword() != null));
-			boolean other = ((m.getEvents() == null) && (m.getCategories() == null));
-			return ack && profile && params && other;
-		} catch (Exception e) {
-			return false;
-		}
+	public static void handleSignOut(Message m, String uID) {
+		ConnectionInfo con = new ConnectionInfo(uID, null, false);
+		GlobalManagers.taskManager.updateInfoMap(uID, con);
+		m.setAck(true);
+		GlobalManagers.taskManager.sendMessageToNetwork(new Gson().toJson(m),
+				uID);
 	}
 }
