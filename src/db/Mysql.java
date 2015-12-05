@@ -54,18 +54,9 @@ public class Mysql {
 
 		try {
 			try {
-
+				//get an event and a profile from Db just for testing the methods
 				Event event = new Gson().fromJson(get10Events().get(0).toString(), Event.class);
-				// System.out.println(event);
 				Profile profile = new Gson().fromJson(get10Members().get(0).toString(), Profile.class);
-				// System.out.println(profile);
-
-				/*
-				 * JSONArray getEventMembers = selectUsersfromEvent(event);
-				 * Profile test2 = new
-				 * Gson().fromJson(getEventMembers.get(1).toString(),
-				 * Profile.class); System.out.println(test2);
-				 */
 				System.out.println(selectUserEvents(profile));
 				System.out.println(selectUsersfromEvent(event));
 			} catch (SQLException ex) {
