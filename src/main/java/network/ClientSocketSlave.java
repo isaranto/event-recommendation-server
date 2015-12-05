@@ -19,17 +19,18 @@ public class ClientSocketSlave extends Thread {
 		long last_timestamp = 0;
 		while (true) {
 			try {
+				String message = in.readUTF();
 				long time_in_seconds = System.nanoTime() / 1000000000;
 				long difference = time_in_seconds - last_timestamp;
 				if (difference > ProjectVariables
 						.getIntValue("message_time_gamp")) {
 					last_timestamp = time_in_seconds;
-					String message = in.readUTF();
 					clientManager.deliverMessage(message);
 				} else {
 					throw new IOException();
 				}
 			} catch (IOException io) {
+				io.printStackTrace();
 				clientManager.deliverIOException(io);
 				break;
 			}

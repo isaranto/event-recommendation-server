@@ -3,17 +3,16 @@ package tasks;
 import java.util.Arrays;
 import java.util.List;
 
-import com.google.gson.Gson;
+import model.Message;
 
 public class MessageInterpreter {
 
-	private static final List<String> valid_actions = Arrays.asList("add",
-			"get", "delete", "edit", "authenticate");
+	private static final List<String> valid_actions = Arrays.asList(
+			"authenticate", "sign-out");
 
-	public static boolean messageIsValid(String msg) {
+	public static boolean messageIsValid(Message m) {
 		try {
-			Message m = new Gson().fromJson(msg, Message.class);
-			if (valid_actions.contains(m.action)) {
+			if (valid_actions.contains(m.getAction())) {
 				return true;
 			} else {
 				return false;
@@ -23,11 +22,10 @@ public class MessageInterpreter {
 		}
 	}
 
-	public static boolean messageRequiresAuth(String msg) {
+	public static boolean messageRequiresAuth(Message m) {
 		// except auth action all messages require authentication.
 		try {
-			Message m = new Gson().fromJson(msg, Message.class);
-			return !m.action.equals("authenticate");
+			return !m.getAction().equals("authenticate");
 		} catch (Exception e) {
 			return true;
 		}
