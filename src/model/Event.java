@@ -1,5 +1,6 @@
 package model;
 
+
 public class Event {
 	private String urlname;
 	private int id, utc_offset;

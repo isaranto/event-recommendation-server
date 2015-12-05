@@ -1,10 +1,42 @@
 package model;
 
 public class Profile {
-	private String name, bio, country, city, state, email, gender, hometown, language, link, flickr, tumblr, twitter,
-			linkedin, fb_name, fb_gender;
-	private int id, joined, facebook, birth_day, birth_month, birth_year;
+	private String name, bio, country, city, state, email, gender, hometown, lang, link, flickr, tumblr, twitter,
+			linkedin, fb_name, fb_gender, facebook;
+	private int id, birth_day, birth_month, birth_year;
+	private long joined;
 	private double lon, lat;
+
+	public Profile(String name, String bio, String country, String city, String state, String email, String gender,
+			String hometown, String lang, String link, String flickr, String tumblr, String twitter, String linkedin,
+			String fb_name, String fb_gender, String facebook, int id, int birth_day, int birth_month, int birth_year,
+			long joined, double lon, double lat) {
+		super();
+		this.name = name;
+		this.bio = bio;
+		this.country = country;
+		this.city = city;
+		this.state = state;
+		this.email = email;
+		this.gender = gender;
+		this.hometown = hometown;
+		this.lang = lang;
+		this.link = link;
+		this.flickr = flickr;
+		this.tumblr = tumblr;
+		this.twitter = twitter;
+		this.linkedin = linkedin;
+		this.fb_name = fb_name;
+		this.fb_gender = fb_gender;
+		this.facebook = facebook;
+		this.id = id;
+		this.birth_day = birth_day;
+		this.birth_month = birth_month;
+		this.birth_year = birth_year;
+		this.joined = joined;
+		this.lon = lon;
+		this.lat = lat;
+	}
 
 	public String getBio() {
 		return bio;
@@ -34,7 +66,7 @@ public class Profile {
 		return email;
 	}
 
-	public int getFacebook() {
+	public String getFacebook() {
 		return facebook;
 	}
 
@@ -62,12 +94,12 @@ public class Profile {
 		return id;
 	}
 
-	public int getJoined() {
+	public long getJoined() {
 		return joined;
 	}
 
-	public String getLanguage() {
-		return language;
+	public String getlang() {
+		return lang;
 	}
 
 	public double getLat() {
@@ -130,7 +162,7 @@ public class Profile {
 		this.email = email;
 	}
 
-	public void setFacebook(int facebook) {
+	public void setFacebook(String facebook) {
 		this.facebook = facebook;
 	}
 
@@ -158,12 +190,12 @@ public class Profile {
 		this.id = id;
 	}
 
-	public void setJoined(int joined) {
+	public void setJoined(long joined) {
 		this.joined = joined;
 	}
 
-	public void setLanguage(String language) {
-		this.language = language;
+	public void setlang(String lang) {
+		this.lang = lang;
 	}
 
 	public void setLat(double lat) {
@@ -179,7 +211,7 @@ public class Profile {
 	}
 
 	public void setLon(double lon) {
-		this.lon = lon;
+		// this.lon = lon;
 	}
 
 	public void setName(String name) {
@@ -196,6 +228,16 @@ public class Profile {
 
 	public void setTwitter(String twitter) {
 		this.twitter = twitter;
+	}
+
+	@Override
+	public String toString() {
+		return "Profile [name=" + name + ", bio=" + bio + ", country=" + country + ", city=" + city + ", state=" + state
+				+ ", email=" + email + ", gender=" + gender + ", hometown=" + hometown + ", lang=" + lang + ", link="
+				+ link + ", flickr=" + flickr + ", tumblr=" + tumblr + ", twitter=" + twitter + ", linkedin=" + linkedin
+				+ ", fb_name=" + fb_name + ", fb_gender=" + fb_gender + ", id=" + id + ", facebook=" + facebook
+				+ ", birth_day=" + birth_day + ", birth_month=" + birth_month + ", birth_year=" + birth_year
+				+ ", joined=" + joined + ", lon=" + lon + ", lat=" + lat + "]";
 	}
 
 }
