@@ -11,7 +11,9 @@ public class GlobalManagers {
 	public static TaskManager taskManager;
 
 	public static void initializeManagers() {
-		GlobalManagers.networkManager = new JNetworkManager();
 		GlobalManagers.taskManager = new JTaskManager();
+		GlobalManagers.networkManager = new JNetworkManager(
+				GlobalManagers.taskManager);
+
 	}
 }

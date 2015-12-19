@@ -1,8 +1,8 @@
 package tasks;
 
-public interface TaskManager {
+import model.UpperLayerManager;
 
-	public void handleMessageFromNetwork(String msg, String uID);
+public interface TaskManager extends UpperLayerManager {
 
 	public void sendMessageToNetwork(String msg, String uID);
 

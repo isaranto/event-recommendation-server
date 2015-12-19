@@ -3,19 +3,21 @@ package network;
 import java.io.IOException;
 import java.net.Socket;
 
+import model.UpperLayerManager;
 import util.AdminCommandManager;
-import util.GlobalManagers;
 import util.ProjectVariables;
 
 public class JNetworkManager implements NetworkManager {
 
 	private ServerSocketManager serverSocketManager;
 	private final ClientSocketHashMap clientMap;
+	private UpperLayerManager manager;
 
-	public JNetworkManager() {
+	public JNetworkManager(UpperLayerManager manager) {
 		setUpServerSocketManager();
 		clientMap = new ClientSocketHashMap(
 				ProjectVariables.getIntValue("max_num_of_connections"));
+		this.manager = manager;
 	}
 
 	@Override
@@ -62,7 +64,7 @@ public class JNetworkManager implements NetworkManager {
 
 	@Override
 	public void pushMessageToTaskManager(String msg, String uID) {
-		GlobalManagers.taskManager.handleMessageFromNetwork(msg, uID);
+		manager.handleMessageFromNetwork(msg, uID);
 	}
 
 	@Override
