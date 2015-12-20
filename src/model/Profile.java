@@ -3,14 +3,18 @@ package model;
 public class Profile {
 	private String name, bio, country, city, state, email, gender, hometown, lang, link, flickr, tumblr, twitter,
 			linkedin, fb_name, fb_gender, facebook;
-	private int id, birth_day, birth_month, birth_year;
-	private long joined;
-	private double lon, lat;
+	private Integer id, birth_day, birth_month, birth_year;
+	private Long joined;
+	private Double lon, lat;
+
+	public Profile() {
+		super();
+	}
 
 	public Profile(String name, String bio, String country, String city, String state, String email, String gender,
 			String hometown, String lang, String link, String flickr, String tumblr, String twitter, String linkedin,
-			String fb_name, String fb_gender, String facebook, int id, int birth_day, int birth_month, int birth_year,
-			long joined, double lon, double lat) {
+			String fb_name, String fb_gender, String facebook, Integer id, int birth_day, int birth_month,
+			int birth_year, Long joined, Double lon, Double lat) {
 		super();
 		this.name = name;
 		this.bio = bio;
@@ -42,15 +46,15 @@ public class Profile {
 		return bio;
 	}
 
-	public int getBirth_day() {
+	public Integer getBirth_day() {
 		return birth_day;
 	}
 
-	public int getBirth_month() {
+	public Integer getBirth_month() {
 		return birth_month;
 	}
 
-	public int getBirth_year() {
+	public Integer getBirth_year() {
 		return birth_year;
 	}
 
@@ -90,11 +94,11 @@ public class Profile {
 		return hometown;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public long getJoined() {
+	public Long getJoined() {
 		return joined;
 	}
 
@@ -102,7 +106,7 @@ public class Profile {
 		return lang;
 	}
 
-	public double getLat() {
+	public Double getLat() {
 		return lat;
 	}
 
@@ -114,7 +118,7 @@ public class Profile {
 		return linkedin;
 	}
 
-	public double getLon() {
+	public Double getLon() {
 		return lon;
 	}
 
@@ -138,15 +142,15 @@ public class Profile {
 		this.bio = bio;
 	}
 
-	public void setBirth_day(int birth_day) {
+	public void setBirth_day(Integer birth_day) {
 		this.birth_day = birth_day;
 	}
 
-	public void setBirth_month(int birth_month) {
+	public void setBirth_month(Integer birth_month) {
 		this.birth_month = birth_month;
 	}
 
-	public void setBirth_year(int birth_year) {
+	public void setBirth_year(Integer birth_year) {
 		this.birth_year = birth_year;
 	}
 
@@ -186,11 +190,11 @@ public class Profile {
 		this.hometown = hometown;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public void setJoined(long joined) {
+	public void setJoined(Long joined) {
 		this.joined = joined;
 	}
 
@@ -198,7 +202,7 @@ public class Profile {
 		this.lang = lang;
 	}
 
-	public void setLat(double lat) {
+	public void setLat(Double lat) {
 		this.lat = lat;
 	}
 
@@ -210,8 +214,8 @@ public class Profile {
 		this.linkedin = linkedin;
 	}
 
-	public void setLon(double lon) {
-		// this.lon = lon;
+	public void setLon(Double lon) {
+		this.lon = lon;
 	}
 
 	public void setName(String name) {

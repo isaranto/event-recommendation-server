@@ -2,15 +2,15 @@ package model;
 
 public class Event {
 	private String urlname;
-	private int id, utc_offset;
-	private double lat, lon;
-	private long time;
+	private Integer id, utc_offset;
+	private Double lat, lon;
+	private Long time;
 
 	public Event() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Event(int id, String urlname, long time, int utc_offset, double lat, double lon) {
+	public Event(Integer id, String urlname, Long time, Integer utc_offset, Double lat, Double lon) {
 		super();
 		this.urlname = urlname;
 		this.id = id;
@@ -20,19 +20,19 @@ public class Event {
 		this.time = time;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public double getLat() {
+	public Double getLat() {
 		return lat;
 	}
 
-	public double getLon() {
+	public Double getLon() {
 		return lon;
 	}
 
-	public long getTime() {
+	public Long getTime() {
 		return time;
 	}
 
@@ -40,23 +40,23 @@ public class Event {
 		return urlname;
 	}
 
-	public int getUtc_offset() {
+	public Integer getUtc_offset() {
 		return utc_offset;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public void setLat(double lat) {
+	public void setLat(Double lat) {
 		this.lat = lat;
 	}
 
-	public void setLon(double lon) {
+	public void setLon(Double lon) {
 		this.lon = lon;
 	}
 
-	public void setTime(long time) {
+	public void setTime(Long time) {
 		this.time = time;
 	}
 
@@ -64,7 +64,7 @@ public class Event {
 		this.urlname = urlname;
 	}
 
-	public void setUtc_offset(int utc_offset) {
+	public void setUtc_offset(Integer utc_offset) {
 		this.utc_offset = utc_offset;
 	}
 

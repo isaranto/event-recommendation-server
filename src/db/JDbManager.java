@@ -35,11 +35,34 @@ public class JDbManager implements DbManager {
 		Connection con = DriverManager.getConnection(url, user, password);
 		PreparedStatement pst = con
 				.prepareStatement("INSERT INTO events(urlname,time,utc_offset,lat,lon) VALUES (?,?,?,?,?);");
-		pst.setString(1, e.getUrlname());
-		pst.setLong(2, e.getTime());
-		pst.setInt(3, e.getUtc_offset());
-		pst.setDouble(4, e.getLat());
-		pst.setDouble(5, e.getLon());
+		if (e.getUrlname().isEmpty()) {
+			pst.setNull(2, java.sql.Types.VARCHAR);
+		} else {
+			pst.setString(1, e.getUrlname());
+		}
+		if (e.getTime() == null) {
+			pst.setNull(2, java.sql.Types.BIGINT);
+		} else {
+			pst.setLong(2, e.getTime());
+		}
+
+		if (e.getUtc_offset() == null) {
+			pst.setNull(2, java.sql.Types.INTEGER);
+		} else {
+			pst.setInt(3, e.getUtc_offset());
+		}
+
+		if (e.getLat() == null) {
+			pst.setNull(2, java.sql.Types.DOUBLE);
+		} else {
+			pst.setDouble(4, e.getLat());
+		}
+
+		if (e.getLon() == null) {
+			pst.setNull(2, java.sql.Types.DOUBLE);
+		} else {
+			pst.setDouble(5, e.getLon());
+		}
 		pst.executeUpdate();
 
 	}
@@ -51,29 +74,130 @@ public class JDbManager implements DbManager {
 				+ "state,email,gender,hometown,lang," + "link,facebook,flickr,tumblr,twitter,"
 				+ "linkedin,birth_day,birth_month,birth_year,lat,lon,fb_name,fb_gender) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
 		pst.setInt(1, p.getId());
-		pst.setString(2, p.getName());
-		pst.setLong(3, p.getJoined());
-		pst.setString(4, p.getBio());
-		pst.setString(5, p.getCountry());
-		pst.setString(6, p.getCity());
-		pst.setString(7, p.getState());
-		pst.setString(8, p.getEmail());
-		pst.setString(9, p.getGender());
-		pst.setString(10, p.getHometown());
-		pst.setString(11, p.getlang());
-		pst.setString(12, p.getLink());
-		pst.setString(13, p.getFacebook());
-		pst.setString(14, p.getFlickr());
-		pst.setString(15, p.getTumblr());
-		pst.setString(16, p.getTwitter());
-		pst.setString(17, p.getLinkedin());
-		pst.setInt(18, p.getBirth_day());
-		pst.setInt(19, p.getBirth_month());
-		pst.setInt(20, p.getBirth_year());
-		pst.setDouble(21, p.getLat());
-		pst.setDouble(22, p.getLon());
-		pst.setString(23, p.getFb_name());
-		pst.setString(24, p.getFb_gender());
+		if (p.getName().isEmpty()) {
+			pst.setNull(2, java.sql.Types.VARCHAR);
+		} else {
+			pst.setString(2, p.getName());
+		}
+		if (p.getJoined() == null) {
+			pst.setNull(2, java.sql.Types.BIGINT);
+		} else {
+			pst.setLong(3, p.getJoined());
+		}
+		if (p.getBio().isEmpty()) {
+			pst.setNull(2, java.sql.Types.VARCHAR);
+		} else {
+			pst.setString(4, p.getBio());
+		}
+		if (p.getCountry().isEmpty()) {
+			pst.setNull(2, java.sql.Types.VARCHAR);
+		} else {
+			pst.setString(5, p.getCountry());
+		}
+		if (p.getCity().isEmpty()) {
+			pst.setNull(2, java.sql.Types.VARCHAR);
+		} else {
+			pst.setString(6, p.getCity());
+		}
+
+		if (p.getState().isEmpty()) {
+			pst.setNull(2, java.sql.Types.VARCHAR);
+		} else {
+			pst.setString(7, p.getState());
+		}
+
+		if (p.getEmail().isEmpty()) {
+			pst.setNull(2, java.sql.Types.VARCHAR);
+		} else {
+			pst.setString(8, p.getEmail());
+		}
+		if (p.getGender().isEmpty()) {
+			pst.setNull(2, java.sql.Types.VARCHAR);
+		} else {
+			pst.setString(9, p.getGender());
+		}
+
+		if (p.getHometown().isEmpty()) {
+			pst.setNull(2, java.sql.Types.VARCHAR);
+		} else {
+			pst.setString(10, p.getHometown());
+		}
+
+		if (p.getlang().isEmpty()) {
+			pst.setNull(2, java.sql.Types.VARCHAR);
+		} else {
+			pst.setString(11, p.getlang());
+		}
+
+		if (p.getLink().isEmpty()) {
+			pst.setNull(2, java.sql.Types.VARCHAR);
+		} else {
+			pst.setString(12, p.getLink());
+		}
+		if (p.getFacebook().isEmpty()) {
+			pst.setNull(2, java.sql.Types.VARCHAR);
+		} else {
+			pst.setString(13, p.getFacebook());
+
+		}
+		if (p.getFlickr().isEmpty()) {
+			pst.setNull(2, java.sql.Types.VARCHAR);
+		} else {
+			pst.setString(14, p.getFlickr());
+		}
+		if (p.getTumblr().isEmpty()) {
+			pst.setNull(2, java.sql.Types.VARCHAR);
+		} else {
+			pst.setString(15, p.getTumblr());
+		}
+		if (p.getTwitter().isEmpty()) {
+			pst.setNull(2, java.sql.Types.VARCHAR);
+		} else {
+			pst.setString(16, p.getTwitter());
+		}
+		if (p.getLinkedin().isEmpty()) {
+			pst.setNull(2, java.sql.Types.VARCHAR);
+		} else {
+			pst.setString(17, p.getLinkedin());
+		}
+		if (p.getBirth_day() == null) {
+			pst.setNull(2, java.sql.Types.INTEGER);
+		} else {
+			pst.setInt(18, p.getBirth_day());
+		}
+		if (p.getBirth_month() == null) {
+			pst.setNull(2, java.sql.Types.INTEGER);
+		} else {
+			pst.setInt(19, p.getBirth_month());
+
+		}
+		if (p.getBirth_year() == null) {
+			pst.setNull(2, java.sql.Types.INTEGER);
+		} else {
+			pst.setInt(20, p.getBirth_year());
+
+		}
+		if (p.getLat() == null) {
+			pst.setNull(2, java.sql.Types.DOUBLE);
+		} else {
+			pst.setDouble(21, p.getLat());
+
+		}
+		if (p.getLon() == null) {
+			pst.setNull(2, java.sql.Types.DOUBLE);
+		} else {
+			pst.setDouble(22, p.getLon());
+		}
+		if (p.getFb_name().isEmpty()) {
+			pst.setNull(2, java.sql.Types.VARCHAR);
+		} else {
+			pst.setString(23, p.getFb_name());
+		}
+		if (p.getFb_gender().isEmpty()) {
+			pst.setNull(2, java.sql.Types.VARCHAR);
+		} else {
+			pst.setString(24, p.getFb_gender());
+		}
 		pst.executeUpdate();
 
 	}
