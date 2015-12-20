@@ -44,6 +44,40 @@ public class JDbManager implements DbManager {
 
 	}
 
+	public static void addProfile(Profile p) throws Exception {
+		// first check if the event already exists
+		Connection con = DriverManager.getConnection(url, user, password);
+		PreparedStatement pst = con.prepareStatement("INSERT INTO members(id,name,joined,bio,country,city,"
+				+ "state,email,gender,hometown,lang," + "link,facebook,flickr,tumblr,twitter,"
+				+ "linkedin,birth_day,birth_month,birth_year,lat,lon,fb_name,fb_gender) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
+		pst.setInt(1, p.getId());
+		pst.setString(2, p.getName());
+		pst.setLong(3, p.getJoined());
+		pst.setString(4, p.getBio());
+		pst.setString(5, p.getCountry());
+		pst.setString(6, p.getCity());
+		pst.setString(7, p.getState());
+		pst.setString(8, p.getEmail());
+		pst.setString(9, p.getGender());
+		pst.setString(10, p.getHometown());
+		pst.setString(11, p.getlang());
+		pst.setString(12, p.getLink());
+		pst.setString(13, p.getFacebook());
+		pst.setString(14, p.getFlickr());
+		pst.setString(15, p.getTumblr());
+		pst.setString(16, p.getTwitter());
+		pst.setString(17, p.getLinkedin());
+		pst.setInt(18, p.getBirth_day());
+		pst.setInt(19, p.getBirth_month());
+		pst.setInt(20, p.getBirth_year());
+		pst.setDouble(21, p.getLat());
+		pst.setDouble(22, p.getLon());
+		pst.setString(23, p.getFb_name());
+		pst.setString(24, p.getFb_gender());
+		pst.executeUpdate();
+
+	}
+
 	// get 10 events for development purposes
 	public static JSONArray get10Events() throws Exception {
 		con = DriverManager.getConnection(url, user, password);
@@ -89,10 +123,17 @@ public class JDbManager implements DbManager {
 				Event test1 = new Gson().fromJson(get10Events().get(1).toString(), Event.class);
 				test1.setId(12345);
 				test1.setUrlname("TESTME");
-				addEvent(test1);
-				System.out.println(selectUserEvents(profile));
-				System.out.println(selectUsersfromEvent(event));
-				System.out.println(test1.toString());
+				// addEvent(test1);
+				Profile test2 = new Gson().fromJson(get10Members().get(2).toString(), Profile.class);
+				// System.out.println(selectUserEvents(profile));
+				// System.out.println(selectUsersfromEvent(event));
+				// System.out.println(test1.toString());
+
+				System.out.println(test2.toString());
+				test2.setName("OBVIOUS");
+				test2.setId(-10);
+				addProfile(test2);
+				System.out.println(test2.toString());
 			} catch (SQLException ex) {
 				Logger lgr = Logger.getLogger(Mysql.class.getName());
 				lgr.log(Level.SEVERE, ex.getMessage(), ex);
