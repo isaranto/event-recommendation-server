@@ -29,6 +29,7 @@ public class Mysql {
 
 	static PreparedStatement pst = null;
 
+	// get 10 events for development purposes
 	public static JSONArray get10Events() throws Exception {
 		con = DriverManager.getConnection(url, user, password);
 		pst = con.prepareStatement("SELECT * FROM events LIMIT 10");
@@ -37,6 +38,7 @@ public class Mysql {
 
 	}
 
+	// get 10 profiles for development purposes
 	public static JSONArray get10Members() throws Exception {
 		con = DriverManager.getConnection(url, user, password);
 		pst = con.prepareStatement("SELECT * FROM members LIMIT 10");
@@ -94,6 +96,7 @@ public class Mysql {
 		}
 	}
 
+	// convert result set to json array
 	public static JSONArray rsToJSONArray(ResultSet rs) throws Exception {
 		JSONArray jsonArray = new JSONArray();
 		while (rs.next()) {
@@ -115,6 +118,7 @@ public class Mysql {
 		return jsonArray;
 	}
 
+	// get events with urlname = parameter given
 	public static JSONArray selectEvents(Event e) throws Exception {
 		Connection con = DriverManager.getConnection(url, user, password);
 		PreparedStatement pst = con.prepareStatement("SELECT * FROM events WHERE urlname = ?");
@@ -124,6 +128,7 @@ public class Mysql {
 
 	}
 
+	// get events that The selected User is going to attend
 	public static JSONArray selectUserEvents(Profile p) throws Exception {
 		Connection con = DriverManager.getConnection(url, user, password);
 		// PreparedStatement pst = con.prepareStatement("SELECT * FROM events
@@ -136,6 +141,7 @@ public class Mysql {
 
 	}
 
+	// get events that The selected User is NOT going to attend
 	public static JSONArray selectUserRejectedEvents(Profile p) throws Exception {
 		Connection con = DriverManager.getConnection(url, user, password);
 		PreparedStatement pst = con.prepareStatement(
@@ -146,6 +152,7 @@ public class Mysql {
 
 	}
 
+	// get the list of the users that are going to attend the event
 	public static JSONArray selectUsersfromEvent(Event e) throws Exception {
 		Connection con = DriverManager.getConnection(url, user, password);
 		PreparedStatement pst = con.prepareStatement(
