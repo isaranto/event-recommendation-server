@@ -1,8 +1,11 @@
-package network;
+package network.classes;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+
+import network.interfaces.NetworkManager;
+import network.interfaces.ServerSocketManager;
 
 public class JServerSocketManager extends Thread implements ServerSocketManager {
 

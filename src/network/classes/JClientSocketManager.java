@@ -1,10 +1,14 @@
-package network;
+package network.classes;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.UUID;
+
+import network.interfaces.ClientSocketManager;
+import network.interfaces.ClientSocketSlave;
+import network.interfaces.NetworkManager;
 
 import model.Connection;
 

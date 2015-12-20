@@ -4,8 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-import network.JNetworkManager;
-import network.NetworkManager;
+import network.classes.JNetworkManager;
+import network.interfaces.NetworkManager;
 import tasks.JTaskManager;
 import tasks.TaskManager;
 

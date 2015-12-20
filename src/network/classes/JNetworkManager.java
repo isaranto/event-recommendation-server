@@ -1,7 +1,10 @@
-package network;
+package network.classes;
 
 import java.io.IOException;
 import java.net.Socket;
+
+import network.interfaces.NetworkManager;
+import network.interfaces.ServerSocketManager;
 
 import model.UpperLayerManager;
 import util.AdminCommandManager;
