@@ -44,7 +44,7 @@ public class JTaskManager implements TaskManager {
 
 	@Override
 	public void sendMessageToNetwork(String msg, String uID) {
-		GlobalManagers.networkManager.sendMessageToClient(msg, uID);
+		GlobalManagers.clientNetworkManager.sendMessageToClient(msg, uID);
 	}
 
 	@Override
