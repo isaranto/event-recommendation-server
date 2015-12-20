@@ -12,7 +12,7 @@ public class AdminCommandManager {
 
 	public static void loadProjectParameters() {
 		try {
-			ProjectVariables.loadProjectVars();
+			GlobalManagers.initializeVariables();
 			print("Project variables loaded successfully");
 		} catch (Exception e) {
 			print("Error loading project variables: " + e.getMessage());

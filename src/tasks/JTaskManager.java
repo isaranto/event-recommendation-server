@@ -3,7 +3,6 @@ package tasks;
 import model.Message;
 import schedulers.GenericQueryScheduler;
 import util.GlobalManagers;
-import util.ProjectVariables;
 
 import com.google.gson.Gson;
 
@@ -13,7 +12,7 @@ public class JTaskManager implements TaskManager {
 
 	public JTaskManager() {
 		infoMap = new ConnectionInfoHashMap(
-				ProjectVariables.getIntValue("max_num_of_connections"));
+				GlobalManagers.projectVariables.maxNumOfConnections);
 	}
 
 	@Override

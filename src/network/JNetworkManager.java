@@ -5,18 +5,20 @@ import java.net.Socket;
 
 import model.UpperLayerManager;
 import util.AdminCommandManager;
-import util.ProjectVariables;
+import util.GlobalManagers;
 
 public class JNetworkManager implements NetworkManager {
 
 	private ServerSocketManager serverSocketManager;
 	private final ClientSocketHashMap clientMap;
 	private UpperLayerManager manager;
+	private int serverPort;
 
-	public JNetworkManager(UpperLayerManager manager) {
+	public JNetworkManager(UpperLayerManager manager, int serverPort) {
+		this.serverPort = serverPort;
 		setUpServerSocketManager();
 		clientMap = new ClientSocketHashMap(
-				ProjectVariables.getIntValue("max_num_of_connections"));
+				GlobalManagers.projectVariables.maxNumOfConnections);
 		this.manager = manager;
 	}
 
@@ -85,7 +87,7 @@ public class JNetworkManager implements NetworkManager {
 		try {
 
 			serverSocketManager = new JServerSocketManager(this,
-					ProjectVariables.getIntValue("server_port"));
+					this.serverPort);
 			serverSocketManager.openSocket();
 			((Thread) serverSocketManager).start();
 		} catch (Exception e) {

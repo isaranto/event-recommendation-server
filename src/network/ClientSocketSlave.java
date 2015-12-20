@@ -3,7 +3,7 @@ package network;
 import java.io.DataInputStream;
 import java.io.IOException;
 
-import util.ProjectVariables;
+import util.GlobalManagers;
 
 public class ClientSocketSlave extends Thread {
 
@@ -22,8 +22,7 @@ public class ClientSocketSlave extends Thread {
 				String message = in.readUTF();
 				long time_in_seconds = System.nanoTime() / 1000000000;
 				long difference = time_in_seconds - last_timestamp;
-				if (difference > ProjectVariables
-						.getIntValue("message_time_gamp")) {
+				if (difference > GlobalManagers.projectVariables.requestTimeGap) {
 					last_timestamp = time_in_seconds;
 					clientManager.deliverMessage(message);
 				} else {
