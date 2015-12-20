@@ -70,9 +70,8 @@ public class JDbManager implements DbManager {
 	public static void addProfile(Profile p) throws Exception {
 		// first check if the event already exists
 		Connection con = DriverManager.getConnection(url, user, password);
-		PreparedStatement pst = con.prepareStatement("INSERT INTO members(id,name,joined,bio,country,city,"
-				+ "state,email,gender,hometown,lang," + "link,facebook,flickr,tumblr,twitter,"
-				+ "linkedin,birth_day,birth_month,birth_year,lat,lon,fb_name,fb_gender) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
+		PreparedStatement pst = con.prepareStatement(
+				"INSERT INTO members(id,name,joined,bio,country,city,state,email,gender,hometown,lang,link,facebook,flickr,tumblr,twitter,linkedin,birth_day,birth_month,birth_year,lat,lon,fb_name,fb_gender) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
 		pst.setInt(1, p.getId());
 		if (p.getName().isEmpty()) {
 			pst.setNull(2, java.sql.Types.VARCHAR);
@@ -226,6 +225,19 @@ public class JDbManager implements DbManager {
 		Connection con = DriverManager.getConnection(url, user, password);
 		PreparedStatement pst = con.prepareStatement("SELECT * FROM events WHERE urlname = ?");
 		pst.setString(1, e.getUrlname());
+		ResultSet rs = pst.executeQuery();
+		return rsToJSONArray(rs);
+
+	}
+
+	public static JSONArray getProfile(Profile p) throws Exception {
+		con = DriverManager.getConnection(url, user, password);
+		pst = con.prepareStatement("SELECT * FROM members WHERE id=?");
+		// pst = con.prepareStatement("SELECT
+		// id,name,DATE_FORMAT(FROM_UNIXTIME(`joined`), '%e %b %Y') AS
+		// 'joined',bio,country,city,state,email,gender,hometown,lang,link,facebook,flickr,tumblr,twitter,linkedin,birth_day,birth_month,birth_year,lat,lon,fb_name,fb_gender
+		// FROM members WHERE id=?");
+		pst.setInt(1, p.getId());
 		ResultSet rs = pst.executeQuery();
 		return rsToJSONArray(rs);
 
