@@ -1,11 +1,24 @@
 package model;
 
-
 public class Event {
 	private String urlname;
 	private int id, utc_offset;
 	private double lat, lon;
 	private long time;
+
+	public Event() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Event(int id, String urlname, long time, int utc_offset, double lat, double lon) {
+		super();
+		this.urlname = urlname;
+		this.id = id;
+		this.utc_offset = utc_offset;
+		this.lat = lat;
+		this.lon = lon;
+		this.time = time;
+	}
 
 	public int getId() {
 		return id;
@@ -53,6 +66,12 @@ public class Event {
 
 	public void setUtc_offset(int utc_offset) {
 		this.utc_offset = utc_offset;
+	}
+
+	@Override
+	public String toString() {
+		return "Event [urlname=" + urlname + ", id=" + id + ", utc_offset=" + utc_offset + ", lat=" + lat + ", lon="
+				+ lon + ", time=" + time + "]";
 	}
 
 }

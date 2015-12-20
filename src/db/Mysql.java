@@ -56,7 +56,8 @@ public class Mysql {
 
 		try {
 			try {
-				//get an event and a profile from Db just for testing the methods
+				// get an event and a profile from Db just for testing the
+				// methods
 				Event event = new Gson().fromJson(get10Events().get(0).toString(), Event.class);
 				Profile profile = new Gson().fromJson(get10Members().get(0).toString(), Profile.class);
 				System.out.println(selectUserEvents(profile));
