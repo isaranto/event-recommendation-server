@@ -19,15 +19,35 @@ import model.Event;
 import model.Profile;
 
 public class Mysql {
-	static String url = "jdbc:mysql://localhost:3306/meetupDataset";
+	static String url = "jdbc:mysql://83.212.119.231:3306/meetupDataset";
 	static String user = "root";
-	static String password = "12345";
+	static String password = "!Q@W#E$R%T";
 
 	static Connection con = null;
 
 	static ResultSet rs = null;
 
 	static PreparedStatement pst = null;
+
+	/*
+	 * Authenticate User
+	 */
+	public static boolean authenticate(String mail, String pass) throws Exception {
+		Connection con = DriverManager.getConnection(url, user, password);
+		PreparedStatement pst = con.prepareStatement(
+				"SELECT authenticate.password FROM authenticate,members WHERE members.id=authenticate.member_id AND members.email=?;");
+		pst.setString(1, mail);
+		rs = pst.executeQuery();
+		if (!rs.next()) {
+			return false;
+		} else if (BCrypt.checkpw(pass, rs.getString("password"))) {
+			System.out.println("found");
+			return true;
+		} else {
+			return false;
+		}
+
+	}
 
 	// get 10 events for development purposes
 	public static JSONArray get10Events() throws Exception {
@@ -60,8 +80,12 @@ public class Mysql {
 				// methods
 				Event event = new Gson().fromJson(get10Events().get(0).toString(), Event.class);
 				Profile profile = new Gson().fromJson(get10Members().get(0).toString(), Profile.class);
-				System.out.println(selectUserEvents(profile));
-				System.out.println(selectUsersfromEvent(event));
+				// System.out.println(selectUserEvents(profile));
+				// System.out.println(selectUsersfromEvent(event));
+				if (authenticate("admin@mail.com", "admin")) {
+					System.out.println("You have successfully logged in");
+				}
+				System.out.println("end");
 			} catch (SQLException ex) {
 				Logger lgr = Logger.getLogger(Mysql.class.getName());
 				lgr.log(Level.SEVERE, ex.getMessage(), ex);
@@ -162,4 +186,5 @@ public class Mysql {
 		return events;
 
 	}
+
 }

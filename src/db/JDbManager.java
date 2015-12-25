@@ -20,9 +20,9 @@ import model.Profile;
 
 public class JDbManager implements DbManager {
 
-	static String url = "jdbc:mysql://localhost:3306/meetupDataset";
+	static String url = "jdbc:mysql://83.212.119.231:3306/meetupDataset";
 	static String user = "root";
-	static String password = "12345";
+	static String password = "!Q@W#E$R%T";
 
 	static Connection con = null;
 
@@ -67,7 +67,7 @@ public class JDbManager implements DbManager {
 
 	}
 
-	public static void addProfile(Profile p) throws Exception {
+	public static void addProfile(Profile p, String pass) throws Exception {
 		// first check if the event already exists
 		Connection con = DriverManager.getConnection(url, user, password);
 		PreparedStatement pst = con.prepareStatement(
@@ -198,6 +198,29 @@ public class JDbManager implements DbManager {
 			pst.setString(24, p.getFb_gender());
 		}
 		pst.executeUpdate();
+		PreparedStatement pst2 = con.prepareStatement("INSERT INTO authenticate(member_id,password) values(?,?);");
+		pst2.setInt(1, p.getId());
+		pst2.setString(2, BCrypt.hashpw(pass, BCrypt.gensalt(12)));
+
+	}
+
+	/*
+	 * Authenticate User
+	 */
+	public static boolean authenticate(String mail, String pass) throws Exception {
+		Connection con = DriverManager.getConnection(url, user, password);
+		PreparedStatement pst = con.prepareStatement(
+				"SELECT authenticate.password FROM authenticate,members WHERE members.id=authenticate.member_id AND members.email=?;");
+		pst.setString(1, mail);
+		rs = pst.executeQuery();
+		if (!rs.next()) {
+			return false;
+		} else if (BCrypt.checkpw(pass, rs.getString("password"))) {
+			System.out.println("found");
+			return true;
+		} else {
+			return false;
+		}
 
 	}
 
@@ -260,15 +283,16 @@ public class JDbManager implements DbManager {
 				test1.setId(12345);
 				test1.setUrlname("TESTME");
 				// addEvent(test1);
-				Profile test2 = new Gson().fromJson(get10Members().get(2).toString(), Profile.class);
+				Profile test2 = new Gson().fromJson(get10Members().get(3).toString(), Profile.class);
 				// System.out.println(selectUserEvents(profile));
 				// System.out.println(selectUsersfromEvent(event));
 				// System.out.println(test1.toString());
-
-				System.out.println(test2.toString());
-				test2.setName("OBVIOUS");
-				test2.setId(-10);
-				addProfile(test2);
+				Profile newP = new Profile();
+				newP.setName("giorgos");
+				newP.setEmail("giorgos@mail.com");
+				newP.setId(123456);
+				System.out.println(newP.toString());
+				addProfile(newP, "test");
 				System.out.println(test2.toString());
 			} catch (SQLException ex) {
 				Logger lgr = Logger.getLogger(Mysql.class.getName());
