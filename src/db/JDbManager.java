@@ -210,7 +210,7 @@ public class JDbManager implements DbManager {
 	public static boolean authenticate(String mail, String pass) throws Exception {
 		Connection con = DriverManager.getConnection(url, user, password);
 		PreparedStatement pst = con.prepareStatement(
-				"SELECT authenticate.password FROM authenticate,members WHERE members.id=authenticate.member_id AND members.email=?;");
+				"SELECT authenticate.password FROM authenticate JOIN members  ON members.id=authenticate.member_id WHERE members.email=?;");
 		pst.setString(1, mail);
 		rs = pst.executeQuery();
 		if (!rs.next()) {
@@ -346,10 +346,13 @@ public class JDbManager implements DbManager {
 	// get events that The selected User is going to attend
 	public static JSONArray selectUserEvents(Profile p) throws Exception {
 		Connection con = DriverManager.getConnection(url, user, password);
-		// PreparedStatement pst = con.prepareStatement("SELECT * FROM events
-		// WHERE id = ?");
+		/*
+		 * TO BE REMOVED PreparedStatement pst = con.prepareStatement(
+		 * "SELECT events.* FROM members,attends,events WHERE members.id=? AND events.id=event_id AND response='yes' AND members.id=member_id;"
+		 * );
+		 */
 		PreparedStatement pst = con.prepareStatement(
-				"SELECT events.* FROM members,attends,events WHERE members.id=? AND events.id=event_id AND response='yes' AND members.id=member_id;");
+				"SELECT events.* FROM EVENTS JOIN attends ON events.id=event_id JOIN members ON members.id=member_id WHERE members.id=? AND attends.response='yes';");
 		pst.setInt(1, p.getId());
 		ResultSet rs = pst.executeQuery();
 		return rsToJSONArray(rs);
@@ -361,7 +364,7 @@ public class JDbManager implements DbManager {
 	public static JSONArray selectUserRejectedEvents(Profile p) throws Exception {
 		Connection con = DriverManager.getConnection(url, user, password);
 		PreparedStatement pst = con.prepareStatement(
-				"SELECT events.* FROM members,attends,events WHERE members.id=? AND events.id=event_id AND response='no' AND members.id=member_id;");
+				"SELECT events.* FROM EVENTS JOIN attends ON events.id=event_id JOIN members ON members.id=member_id WHERE members.id=? AND attends.response='no';");
 		pst.setInt(1, p.getId());
 		ResultSet rs = pst.executeQuery();
 		return rsToJSONArray(rs);
@@ -370,8 +373,13 @@ public class JDbManager implements DbManager {
 
 	public static JSONArray selectUsersfromEvent(Event e) throws Exception {
 		Connection con = DriverManager.getConnection(url, user, password);
+		/*
+		 * TO BE REMOVED PreparedStatement pst = con.prepareStatement(
+		 * "SELECT members.* FROM members,attends,events WHERE events.id=? AND events.id=event_id AND response='yes' AND members.id=member_id;"
+		 * );
+		 */
 		PreparedStatement pst = con.prepareStatement(
-				"SELECT members.* FROM members,attends,events WHERE events.id=? AND events.id=event_id AND response='yes' AND members.id=member_id;");
+				"SELECT * FROM meetupDataset.members JOIN attends ON members.id=attends.member_id JOIN EVENTS ON events.id=event_id WHERE events.id=? AND response='yes';");
 		pst.setInt(1, e.getId());
 		ResultSet rs = pst.executeQuery();
 		return rsToJSONArray(rs);
